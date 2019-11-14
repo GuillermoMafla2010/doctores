@@ -2,7 +2,9 @@ const Sequalize=require('sequelize');
 const server=require('../server')
 const models=require('../models/index')
 const cors=require('cors')
-
+const bodyparser=require('body-parser')
+server.use(cors())
+server.use(bodyparser.urlencoded({extended:false}))
 
 //Metodo que retorna a todos los pacientes
 server.get("/pacientes",(req,res)=>{
@@ -24,18 +26,31 @@ server.get("/pacientes/:id",(req,res)=>{
 
 
 //Metodo para guardar un paciente
-server.post('/pacientes',(req,res)=>{
-    let body=req.body
+server.post("/pacientes",(req,res)=>{
+    let body = req.body
+    let pacientes_nuevo=models.Pacientes.create({
+        nombre:body.nombre,
+        apellido:body.apellido,
+        email:body.email,
+        celular:body.celular
+    }).then(resultado=>{
+        res.json({paciente:resultado})
+    })
+})
 
-    models.Pacientes.create({
-        nombre:body.nombre , apellido:body.apellido , email:body.email , celular:body.celular
-    }).then(paciente=>{
 
-
+<<<<<<< HEAD
         res.json({
             ok:true,
             paciente:paciente
         })
+=======
+//Metodo para eliminar a un paciente de la base de datos
+server.delete("/pacientes/:id",(req,res)=>{
+    let id= req.params.id
+    models.Pacientes.destroy({where:{id:id}}).then(resp=>{
+        res.json({respuesta:"Usuario eliminado"})
+>>>>>>> 70584433dba757dc0fc0d7e0a9f209764c405e9b
     })
 })
 
