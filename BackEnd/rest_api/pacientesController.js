@@ -34,7 +34,7 @@ server.post('/pacientes',(req,res)=>{
 
         res.json({
             ok:true,
-            paciente
+            paciente:paciente
         })
     })
 })
