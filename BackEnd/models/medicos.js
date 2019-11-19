@@ -1,8 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Medicos = sequelize.define('Medicos', {
-    id: {type:DataTypes.INTEGER,
-      primaryKey: true},
+    
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
     celular: DataTypes.STRING,
@@ -10,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {timestamps: false});
   Medicos.associate = function(models) {
     // associations can be defined here
+    Medicos.hasMany(models.medicos_especialidades)
   };
   return Medicos;
 };
