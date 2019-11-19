@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Citas', {
+    return queryInterface.createTable('Especialidades', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,25 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.NUMBER
       },
-      sintomas: {
+      nombre_especialidad: {
         type: Sequelize.STRING
-      },
-      fecha: {
-        type: Sequelize.STRING
-      },
-      hora_id: {
-        type: Sequelize.INTEGER
-      },
-      medico_id: {
-        type: Sequelize.INTEGER
-      },
-      especialidad_id: {
-        type: Sequelize.INTEGER
-      },
-      paciente_id: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Citas');
+    return queryInterface.dropTable('Especialidades');
   }
 };
