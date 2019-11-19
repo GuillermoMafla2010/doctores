@@ -1,5 +1,5 @@
 const Sequalize=require('sequelize');
-const server=require('../server')
+const server=require('../server').app
 const models=require('../models/index')
 const cors=require('cors')
 const bodyparser=require('body-parser')
