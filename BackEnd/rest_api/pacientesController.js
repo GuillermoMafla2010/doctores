@@ -48,3 +48,21 @@ server.delete("/pacientes/:id",(req,res)=>{
 })
 
 
+
+
+server.put("/pacientes/:id",(req,res)=>{
+    let body=req.body
+    let id=req.params.id
+    models.Pacientes.update({
+        nombre:body.nombre,
+        apellido:body.apellido,
+        email:body.email,
+        celular:body.celular
+    },{where:{
+        id:id
+    }}).then(categoria=>{
+        res.json({
+            mensaje:`Se actualizo con exito`
+        })
+    })
+})
