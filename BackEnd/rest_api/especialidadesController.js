@@ -25,4 +25,14 @@ server.get("/especialidades",(req,res)=>{
 })
 
 
+//Metodo que encuentra el id segun el nombre de la especialidad
+server.get("/especialidades/:nombre",(req,res)=>{
+    
+    let nombre=req.params.nombre
+    models.Especialidades.findAll({where:{nombre_especialidad:nombre}}).then(id=>{
+        res.json({id});
+    })
+})
+
+
 

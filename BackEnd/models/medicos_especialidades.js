@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     
     medico_id: DataTypes.NUMBER,
     especialidad_id: DataTypes.NUMBER
-  }, {});
+  }, {timestamps: false});
   medicos_especialidades.associate = function(models) {
     // associations can be defined here
     medicos_especialidades.belongsTo(models.Medicos)
