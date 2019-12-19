@@ -34,5 +34,37 @@ server.get("/especialidades/:nombre",(req,res)=>{
     })
 })
 
+//Metodo que encuentra una especialidad segun el id 
+server.get("/especialidad/:id",(req,res)=>{
+    let id=req.params.id
+    models.Especialidades.findAll({where:{id:id}}).then(id=>{
+        res.json({id});
+    })
+})
+
+
+//Metodo para crear una nueva especialidad
+server.post("/especialidades",(req,res)=>{
+    let body = req.body
+    
+
+    models.Especialidades.create({
+        nombre_especialidad:body.nombre_especialidad
+    }).then(response=>{
+        res.json("Especialidad creada")
+    })
+})
+
+
+//Metodo para eliminar a una especialidad de la base de datos
+server.delete("/especialidades/:id",(req,res)=>{
+    let id= req.params.id
+    models.Especialidades.destroy({where:{id:id}}).then(resp=>{
+        res.json({respuesta:"Especialidad eliminada"})
+    })
+})
+
+
+
 
 
