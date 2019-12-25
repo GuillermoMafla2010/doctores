@@ -65,6 +65,20 @@ server.delete("/especialidades/:id",(req,res)=>{
 })
 
 
+//metodo para actualizar una especialidad
+server.put("/especialidades/:id",(req,res)=>{
+    let id=req.params.id;
+    let body=req.body;
+
+    models.Especialidades.update({
+        nombre_especialidad:body.nombre_especialidad
+    },{where:{id:id}}).then(x=>{
+        res.json({
+            mensaje:"Especialidad Actualizada"
+        })
+    })
+})
+
 
 
 
