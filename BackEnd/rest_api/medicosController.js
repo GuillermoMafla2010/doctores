@@ -21,7 +21,7 @@ server.get("/medicos",(req,res)=>{
 //Metodo que retorna un paciente segun su numero id
 server.get("/medicos/:id",(req,res)=>{
     let id=req.params.id
-    models.Medicos.findAll({/*include:[{all:true,nested:true}] ,*/where:{id:id}}).then(medicos=>{res.json({medicos})})
+    models.Medicos.findAll({include:[{all:true,nested:true}] ,where:{id:id}}).then(medicos=>{res.json({medicos})})
 })
 
 
