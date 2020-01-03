@@ -20,3 +20,12 @@ server.post("/medicos_especialidad",(req,res)=>{
         res.json({medicos:resultado})
     })
 });
+
+
+//Metodo para eliminar a una especialidad asociada a un doctor
+server.delete("/medicos_especialidad/:id",(req,res)=>{
+    let id= req.params.id
+    models.medicos_especialidades.destroy({where:{id:id}}).then(resp=>{
+        res.json({respuesta:"Especialidad eliminada"})
+    })
+})

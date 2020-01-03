@@ -6,6 +6,10 @@ const bodyparser=require('body-parser')
 server.use(cors())
 server.use(bodyparser.urlencoded({extended:false}))
 
+
+const medicos_especialidades=models.Medicos_Especialidades;
+const especialidades=models.Especialidades;
+
 //Metodo que retorna a todos los pacientes
 server.get("/medicos",(req,res)=>{
     
@@ -21,7 +25,7 @@ server.get("/medicos",(req,res)=>{
 //Metodo que retorna un paciente segun su numero id
 server.get("/medicos/:id",(req,res)=>{
     let id=req.params.id
-    models.Medicos.findAll({include:[{all:true,nested:true}] ,where:{id:id}}).then(medicos=>{res.json({medicos})})
+    models.Medicos.findAll({ where:{id:id} , include:[{nested:true,all:true}] } ).then(medicos=>{res.json({medicos})})
 })
 
 
@@ -44,6 +48,25 @@ server.delete("/medicos/:id",(req,res)=>{
     let id= req.params.id
     models.Medicos.destroy({where:{id:id}}).then(resp=>{
         res.json({respuesta:"Usuario eliminado"})
+    })
+})
+
+
+//Metodo para modificar a un medico
+server.put("/medicos/:id",(req,res)=>{
+    let body=req.body
+    let id=req.params.id
+    models.Medicos.update({
+        nombre:body.nombre,
+        apellido:body.apellido,
+        email:body.email,
+        celular:body.celular
+    },{where:{
+        id:id
+    }}).then(categoria=>{
+        res.json({
+            mensaje:`Se actualizo con exito`
+        })
     })
 })
 

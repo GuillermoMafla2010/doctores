@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {timestamps: false},{underscored: true});
   medicos_especialidades.associate = function(models) {
     // associations can be defined here
-    medicos_especialidades.belongsTo(models.Medicos,{foreignKey:'id'})
-    medicos_especialidades.belongsTo(models.Especialidades,{as:'Especialidad' ,foreignKey:'id'})
+    medicos_especialidades.belongsTo(models.Medicos,{foreignKey:'medico_id'})
+    medicos_especialidades.belongsTo(models.Especialidades,{foreignKey:'especialidad_id',as:'Especialidades'})
   };
   return medicos_especialidades;
 };
