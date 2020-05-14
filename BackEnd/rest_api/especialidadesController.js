@@ -5,12 +5,13 @@ const cors=require('cors')
 const bodyparser=require('body-parser')
 server.use(cors())
 server.use(bodyparser.urlencoded({extended:false}))
+const {verificartoken}=require('../middlewares/autenticacion')
 
 
 
 
 //Metodo que retorna TODAS las especialidades
-server.get("/especialidades",(req,res)=>{
+server.get("/especialidades" , verificartoken ,(req,res)=>{
     
     /*models.Especialidades.findAll().then(espec=>{
         res.json({
@@ -26,7 +27,7 @@ server.get("/especialidades",(req,res)=>{
 
 
 //Metodo que encuentra el id segun el nombre de la especialidad
-server.get("/especialidades/:nombre",(req,res)=>{
+server.get("/especialidades/:nombre" ,verificartoken,(req,res)=>{
     
     let nombre=req.params.nombre
     models.Especialidades.findAll({where:{nombre_especialidad:nombre}}).then(id=>{
@@ -35,7 +36,7 @@ server.get("/especialidades/:nombre",(req,res)=>{
 })
 
 //Metodo que encuentra una especialidad segun el id 
-server.get("/especialidad/:id",(req,res)=>{
+server.get("/especialidad/:id" ,verificartoken,(req,res)=>{
     let id=req.params.id
     models.Especialidades.findAll({where:{id:id}}).then(id=>{
         res.json({id});
@@ -44,7 +45,7 @@ server.get("/especialidad/:id",(req,res)=>{
 
 
 //Metodo para crear una nueva especialidad
-server.post("/especialidades",(req,res)=>{
+server.post("/especialidades" ,verificartoken,(req,res)=>{
     let body = req.body
     
 
@@ -57,7 +58,7 @@ server.post("/especialidades",(req,res)=>{
 
 
 //Metodo para eliminar a una especialidad de la base de datos
-server.delete("/especialidades/:id",(req,res)=>{
+server.delete("/especialidades/:id" ,verificartoken,(req,res)=>{
     let id= req.params.id
     models.Especialidades.destroy({where:{id:id}}).then(resp=>{
         res.json({respuesta:"Especialidad eliminada"})
@@ -66,7 +67,7 @@ server.delete("/especialidades/:id",(req,res)=>{
 
 
 //metodo para actualizar una especialidad
-server.put("/especialidades/:id",(req,res)=>{
+server.put("/especialidades/:id" ,verificartoken,(req,res)=>{
     let id=req.params.id;
     let body=req.body;
 
@@ -79,6 +80,17 @@ server.put("/especialidades/:id",(req,res)=>{
     })
 })
 
+//Obtiene todos los doctores de una especialidad
 
+
+server.get("/doctores_especialidad/:id" ,verificartoken,(req,res)=>{
+    let id=req.params.id
+
+    //METODO IMPORTNATE
+    //con el attributes:[] no muestra los roles cuando se invoca el json
+    models.Especialidades.findOne({where:{id:id}, 
+        include:[ {model:models.Usuarios ,attributes:{exclude:['password','fecha_nacimiento','cedula','email']}, through :{attributes:[]}}]  }).then(medicos=>{res.json({medicos})})
+
+})
 
 

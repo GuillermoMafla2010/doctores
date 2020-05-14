@@ -22,14 +22,14 @@ server.get("/medicos",(req,res)=>{
 })
 
 
-//Metodo que retorna un paciente segun su numero id
+//Metodo que retorna un medico segun su numero id
 server.get("/medicos/:id",(req,res)=>{
     let id=req.params.id
     models.Medicos.findAll({ where:{id:id} , include:[{nested:true,all:true}] } ).then(medicos=>{res.json({medicos})})
 })
 
 
-//Metodo para guardar un paciente
+//Metodo para guardar un medico
 server.post("/medicos",(req,res)=>{
     let body = req.body
     let pacientes_nuevo=models.Medicos.create({
@@ -69,5 +69,6 @@ server.put("/medicos/:id",(req,res)=>{
         })
     })
 })
+
 
 

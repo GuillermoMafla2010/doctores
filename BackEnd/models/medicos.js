@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
     celular: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    
+    
   }, {timestamps: false});
   Medicos.associate = function(models) {
     // associations can be defined here
@@ -13,6 +15,16 @@ module.exports = (sequelize, DataTypes) => {
     Medicos.hasMany(models.medicos_especialidades,{ 
       foreignKey: 'medico_id',
       targetKey: 'medico_id'})
+
+      Medicos.hasMany(models.citas,{
+        foreignKey:'medico_id',
+        targetKey: 'medico_id'
+      })
+
+      
   };
+
+
+    
   return Medicos;
 };
